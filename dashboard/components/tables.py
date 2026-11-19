@@ -12,6 +12,19 @@ def show_kpis(values: dict[str, object], columns: int = 4) -> None:
         cards[index % columns].metric(label, value)
 
 
+def show_status(status: str, verification: str | None = None) -> None:
+    """Show solver and verification state with text, not color alone."""
+    label = f"Solver status: {status}"
+    if verification is not None:
+        label += f" | Verification: {verification}"
+    if status == "OPTIMAL" and verification in (None, "PASS"):
+        st.success(label)
+    elif status in {"INFEASIBLE", "UNBOUNDED", "INVALID_DATA"} or verification == "FAIL":
+        st.error(label)
+    else:
+        st.warning(label)
+
+
 def show_table(frame: pd.DataFrame, title: str | None = None) -> None:
     if title:
         st.subheader(title)

@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit as st
 
 from dashboard.components.charts import bar_chart, heatmap, stacked_fulfillment_chart
-from dashboard.components.tables import download_data, show_kpis, show_table
+from dashboard.components.tables import download_data, show_kpis, show_status, show_table
 
 
 st.title("Optimization Results")
@@ -16,20 +16,27 @@ metrics = st.session_state["optimization_metrics"]
 model_name = st.session_state["optimization_model_name"]
 verification = st.session_state["optimization_verification"]
 st.caption(f"Most recent model: {model_name}")
+emergency_demand = metrics["emergency_fulfillment_units"] + metrics["emergency_shortage_units"]
+normal_demand = metrics["normal_fulfillment_units"] + metrics["normal_shortage_units"]
+total_demand = emergency_demand + normal_demand
 show_kpis({
-    "Emergency demand": metrics["emergency_fulfillment_units"] + metrics["emergency_shortage_units"],
+    "Total fulfilled": f"{metrics['total_supplied_units']} / {total_demand}",
+    "Overall fulfillment": f"{100 * metrics['total_supplied_units'] / total_demand:.1f}%",
+    "Emergency demand": emergency_demand,
     "Emergency fulfilled": metrics["emergency_fulfillment_units"],
-    "Emergency unmet": metrics["emergency_shortage_units"],
-    "Normal demand": metrics["normal_fulfillment_units"] + metrics["normal_shortage_units"],
+    "Normal demand": normal_demand,
     "Normal fulfilled": metrics["normal_fulfillment_units"],
-    "Normal unmet": metrics["normal_shortage_units"],
-    "Total fulfilled": metrics["total_supplied_units"],
     "Total unmet": metrics["total_unmet_units"],
-    "Transport cost (INR)": metrics["total_transportation_cost"],
-    "Runtime (seconds)": metrics["runtime_seconds"],
+    "Transport cost (INR)": f"{metrics['total_transportation_cost']:,.2f}",
+    "Runtime (seconds)": f"{metrics['runtime_seconds']:.4f}",
 })
-st.write(f"Solver status: **{metrics['status']}** | Verification: **{'PASS' if verification['passed'] else 'FAIL'}**")
-
+st.progress(min(1.0, metrics["total_supplied_units"] / total_demand if total_demand else 0.0),
+            text="Overall fulfillment")
+show_status(metrics["status"], "PASS" if verification["passed"] else "FAIL")
+st.caption(
+    f"Emergency: {metrics['emergency_fulfillment_units']} / {emergency_demand} | "
+    f"Normal: {metrics['normal_fulfillment_units']} / {normal_demand}"
+)
 fulfillment = pd.DataFrame([
     {"category": "Emergency", "status": "Fulfilled", "units": metrics["emergency_fulfillment_units"]},
     {"category": "Emergency", "status": "Unmet", "units": metrics["emergency_shortage_units"]},
