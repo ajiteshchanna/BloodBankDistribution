@@ -27,7 +27,6 @@ def _style(fig):
     )
     fig.update_xaxes(showgrid=False, linecolor="#303036", tickfont=dict(color="#A3A3A3"))
     fig.update_yaxes(gridcolor="#303036", linecolor="#303036", tickfont=dict(color="#A3A3A3"))
-    return fig
 
 
 def bar_chart(frame: pd.DataFrame, x: str, y: str, title: str,
@@ -35,7 +34,7 @@ def bar_chart(frame: pd.DataFrame, x: str, y: str, title: str,
     fig = px.bar(frame, x=x, y=y, color=color, title=title,
                  color_discrete_map=COLORS, labels={x: x_label, y: y_label})
     _style(fig)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     return fig
 
 
@@ -44,7 +43,7 @@ def stacked_fulfillment_chart(frame: pd.DataFrame, title: str = "Fulfilled and u
                  title=title, color_discrete_map=COLORS,
                  labels={"category": "", "units": "Units", "status": ""})
     _style(fig)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     return fig
 
 
@@ -57,7 +56,7 @@ def heatmap(frame: pd.DataFrame, title: str, x_label: str = "", y_label: str = "
     ))
     fig.update_layout(title=title)
     _style(fig)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     return fig
 
 
@@ -67,7 +66,7 @@ def comparison_chart(frame: pd.DataFrame, y: str, title: str, y_label: str):
                  color="model_name", color_discrete_sequence=MODEL_COLORS)
     fig.update_layout(showlegend=False)
     _style(fig)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     return fig
 
 
@@ -78,5 +77,29 @@ def grouped_bar_chart(frame: pd.DataFrame, x: str, y: str, color: str,
                  labels={x: x_label, y: y_label, color: ""})
     fig.update_layout(height=330)
     _style(fig)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
+    return fig
+
+
+def demand_distribution_chart(frame: pd.DataFrame):
+    """Render a compact emergency-versus-normal demand comparison."""
+    plot_frame = frame.copy()
+    plot_frame["share_label"] = plot_frame["share"].map(lambda value: f"{value:.1%}")
+    fig = px.bar(
+        plot_frame,
+        x="category",
+        y="units",
+        color="category",
+        text="share_label",
+        title="Demand distribution",
+        color_discrete_map=COLORS,
+        labels={"category": "", "units": "Requested units"},
+    )
+    fig.update_traces(
+        textposition="outside",
+        hovertemplate="%{x}: %{y} units (%{text})<extra></extra>",
+    )
+    fig.update_layout(showlegend=False, height=300)
+    _style(fig)
+    st.plotly_chart(fig, width="stretch")
     return fig

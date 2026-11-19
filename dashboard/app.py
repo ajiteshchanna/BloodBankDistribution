@@ -18,23 +18,32 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    .block-container { max-width: 1440px; padding-top: 1.5rem; padding-bottom: 2rem; }
+    .block-container { max-width: 1440px; padding-top: 1.25rem; padding-bottom: 2rem; }
+    .eyebrow {
+        color: #E63946;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        margin-bottom: 0.5rem;
+    }
+    .kpi-highlight-label {
+        color: #E63946;
+        font-size: 0.8rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 0.35rem;
+    }
     [data-testid="stMetric"] {
         background: #202024;
         border: 1px solid #303036;
         border-radius: 10px;
-        padding: 12px;
+        padding: 0.75rem;
     }
-    [data-testid="stButton"] button {
-        border-radius: 8px;
-        border: 1px solid #E63946;
-    }
-    [data-testid="stDownloadButton"] button {
-        border-radius: 8px;
-        border: 1px solid #303036;
-    }
-    [data-testid="stTabs"] button[aria-selected="true"] {
+    .workflow-arrow {
         color: #E63946;
+        font-size: 1.4rem;
+        text-align: center;
+        padding-top: 1.1rem;
     }
     </style>
     """,
@@ -56,9 +65,7 @@ navigation = st.navigation(
             st.Page(str(pages_dir / "4_Scenario_Analysis.py"), title="Scenario Analysis"),
             st.Page(str(pages_dir / "5_Model_Comparison.py"), title="Model Comparison"),
         ],
-        "Project": [
-            st.Page(str(pages_dir / "6_About.py"), title="About"),
-        ],
+        "Project": [st.Page(str(pages_dir / "6_About.py"), title="About")],
     },
     position="top",
 )

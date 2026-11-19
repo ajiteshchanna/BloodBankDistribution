@@ -6,10 +6,34 @@ import pandas as pd
 import streamlit as st
 
 
-def show_kpis(values: dict[str, object], columns: int = 4) -> None:
+def show_kpis(values: dict[str, object], columns: int = 4,
+              highlighted: set[str] | None = None) -> None:
+    highlighted = highlighted or set()
     cards = st.columns(columns)
     for index, (label, value) in enumerate(values.items()):
-        cards[index % columns].metric(label, value)
+        with cards[index % columns].container(border=True):
+            if label in highlighted:
+                st.markdown(
+                    f'<div class="kpi-highlight-label">{label}</div>',
+                    unsafe_allow_html=True,
+                )
+                st.metric(label=label, value=value, label_visibility="collapsed")
+            else:
+                st.metric(label, value)
+
+
+def show_workflow(steps: list[str]) -> None:
+    """Render an informational workflow without implying execution state."""
+    columns = st.columns(len(steps) * 2 - 1)
+    for index, step in enumerate(steps):
+        with columns[index * 2].container(border=True):
+            st.markdown(f"**{index + 1:02d}**")
+            st.markdown(step)
+        if index < len(steps) - 1:
+            columns[index * 2 + 1].markdown(
+                '<div class="workflow-arrow" aria-hidden="true">→</div>',
+                unsafe_allow_html=True,
+            )
 
 
 def show_status(status: str, verification: str | None = None) -> None:
@@ -31,7 +55,7 @@ def show_table(frame: pd.DataFrame, title: str | None = None) -> None:
     if frame.empty:
         st.info("No records match the current filters.")
     else:
-        st.dataframe(frame, use_container_width=True, hide_index=True)
+        st.dataframe(frame, width="stretch", hide_index=True)
 
 
 def download_data(label: str, data: pd.DataFrame | dict, filename: str,

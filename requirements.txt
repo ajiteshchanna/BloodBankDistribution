@@ -1,7 +1,7 @@
 gurobipy
 pandas
 numpy
-streamlit>=1.46.0
+streamlit
 matplotlib
 plotly
 pytest
