@@ -30,3 +30,25 @@ def test_model_comparison_output_contains_verified_rows():
     frame = pd.read_csv(ROOT / "outputs" / "results" / "model_comparison.csv")
     assert set(frame["verification_status"]) == {"PASS"}
     assert set(frame["solver_status"]) == {"OPTIMAL"}
+
+
+def test_about_page_uses_five_tabs_and_verified_sources():
+    source = (ROOT / "dashboard" / "pages" / "6_About.py").read_text(encoding="utf-8")
+    for label in (
+        '"Overview"',
+        '"Mathematical Models"',
+        '"Methodology"',
+        '"Results & Scenarios"',
+        '"Technical Details"',
+    ):
+        assert label in source
+
+    model_frame = pd.read_csv(ROOT / "outputs" / "results" / "model_comparison.csv")
+    assert set(model_frame["model_name"]) == {
+        "transportation",
+        "assignment",
+        "integrated",
+    }
+
+    scenario_frame = pd.read_csv(ROOT / "outputs" / "results" / "scenario_comparison.csv")
+    assert scenario_frame["scenario_id"].tolist() == ["S1", "S2", "S3", "S4", "S5"]

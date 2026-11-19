@@ -1,0 +1,14 @@
+# About Page Enhancement Task Tracker
+
+| ID | Subtask | Status | Files changed | Verification / outcome | Remaining issues |
+|---|---|---|---|---|---|
+| A1 | Inspect existing About page and project documentation | DONE | [dashboard/pages/6_About.py](/D:/ENGINEER/OPR/dashboard/pages/6_About.py), [docs/mathematical_formulation.md](/D:/ENGINEER/OPR/docs/mathematical_formulation.md) | Existing page and formulation reviewed. | None |
+| A2 | Verify dataset statistics and optimization results | DONE | [outputs/results/model_comparison.csv](/D:/ENGINEER/OPR/outputs/results/model_comparison.csv), [outputs/results/scenario_comparison.csv](/D:/ENGINEER/OPR/outputs/results/scenario_comparison.csv) | Dataset and verified baseline/scenario CSV sources identified. | None |
+| A3 | Plan the About page layout | DONE | [dashboard/pages/6_About.py](/D:/ENGINEER/OPR/dashboard/pages/6_About.py) | Planned five-tab layout with cards, tables, expanders, and LaTeX. | None |
+| A4 | Implement project introduction and problem statement | DONE | [dashboard/pages/6_About.py](/D:/ENGINEER/OPR/dashboard/pages/6_About.py) | Overview introduction, problem statement, objectives, and dynamic dataset statistics implemented. | None |
+| A5 | Implement mathematical formulations and model explanations | DONE | [dashboard/pages/6_About.py](/D:/ENGINEER/OPR/dashboard/pages/6_About.py) | Three models and lexicographic objectives use LaTeX explanations based on the project formulation. | None |
+| A6 | Implement workflow and methodology | DONE | [dashboard/pages/6_About.py](/D:/ENGINEER/OPR/dashboard/pages/6_About.py) | Eight-stage workflow, module references, Gurobi process, and independent verification explained. | None |
+| A7 | Implement results and scenario analysis summaries | DONE | [dashboard/pages/6_About.py](/D:/ENGINEER/OPR/dashboard/pages/6_About.py) | Model and scenario CSV outputs are loaded with unavailable-file fallbacks. | None |
+| A8 | Implement technology stack, assumptions, and future scope | DONE | [dashboard/pages/6_About.py](/D:/ENGINEER/OPR/dashboard/pages/6_About.py) | Technology, architecture, assumptions, limitations, and clearly marked future scope added. | None |
+| A9 | Apply responsive styling | DONE | [dashboard/pages/6_About.py](/D:/ENGINEER/OPR/dashboard/pages/6_About.py), [dashboard/app.py](/D:/ENGINEER/OPR/dashboard/app.py) | Native tabs, columns, containers, tables, and expanders preserve wide and narrow layout behavior. | Browser-only visual inspection remains unavailable. |
+| A10 | Run tests and perform visual verification | DONE | [dashboard/pages/6_About.py](/D:/ENGINEER/OPR/dashboard/pages/6_About.py), [tests/test_dashboard.py](/D:/ENGINEER/OPR/tests/test_dashboard.py) | Compilation passed; full pytest suite passed with 45 tests; Streamlit startup returned HTTP 200 on port 8503. | Page-by-page browser visual verification unavailable. |
