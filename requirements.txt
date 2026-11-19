@@ -1,0 +1,8 @@
+gurobipy
+pandas
+numpy
+streamlit
+matplotlib
+plotly
+pytest
+python-dotenv

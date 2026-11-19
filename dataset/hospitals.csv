@@ -1,0 +1,9 @@
+hospital_id,hospital_name,city,latitude_reference,longitude_reference
+H01,Nagpur General Hospital,Nagpur,21.1458,79.0882
+H02,Wardha District Hospital,Wardha,20.7453,78.6022
+H03,Amravati City Hospital,Amravati,20.9374,77.7796
+H04,Akola General Hospital,Akola,20.7002,77.0082
+H05,Yavatmal District Hospital,Yavatmal,20.3899,78.1307
+H06,Chandrapur Medical Centre,Chandrapur,19.9615,79.2961
+H07,Bhandara General Hospital,Bhandara,21.1702,79.6489
+H08,Washim District Hospital,Washim,20.1119,77.133

@@ -1,0 +1,13 @@
+{
+  "banks": 5,
+  "hospitals": 8,
+  "blood_groups": 8,
+  "inventory_rows": 40,
+  "requests": 32,
+  "transport_links": 40,
+  "inventory_units": 780,
+  "demand_units": 634,
+  "emergency_requests": 16,
+  "emergency_demand_units": 346,
+  "normal_demand_units": 288
+}
